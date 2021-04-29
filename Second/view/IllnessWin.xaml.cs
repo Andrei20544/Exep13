@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Second.view
 {
@@ -88,27 +79,41 @@ namespace Second.view
         {
             try
             {
-                int _maxLenth = realtors.Count;
-
-                if (index <= _maxLenth && index > 0)
+                using (Model1 model = new Model1())
                 {
-                    using (Model1 model = new Model1())
-                    {
-                        Болезни болезни = new Болезни
-                        {
-                            Наиенование = name.Text,
-                            Симптомы = simpt.Text,
-                            Продолжительнось = continuied.Text,
-                            Последствия = aftermath.Text,
-                            Код_лекарства_1 = long.Parse(CodeLec1.Text),
-                            Код_лекарства_2 = long.Parse(CodeLec2.Text),
-                            Код_лекарства_3 = long.Parse(CodeLec3.Text)
-                        };
 
-                        model.Болезни.Add(болезни);
-                        model.SaveChanges();
+                    Болезни болезни = model.Болезни.Where(p => p.Код_болезни == int.Parse(CodeDis.Text)).FirstOrDefault();
 
-                    }
+                    болезни.Наиенование = name.Text;
+                    болезни.Симптомы = simpt.Text;
+                    болезни.Продолжительнось = continuied.Text;
+                    болезни.Последствия = aftermath.Text;
+                    болезни.Код_лекарства_1 = long.Parse(CodeLec1.Text);
+                    болезни.Код_лекарства_2 = long.Parse(CodeLec2.Text);
+                    болезни.Код_лекарства_3 = long.Parse(CodeLec3.Text);
+
+                    model.Entry(болезни).State = System.Data.Entity.EntityState.Modified;
+                    model.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось сохранить изменения");
+            }
+        }
+
+        private void DeleteEntry()
+        {
+            try
+            {
+                using (Model1 model = new Model1())
+                {
+
+                    Болезни болезни = model.Болезни.Where(p => p.Код_болезни == int.Parse(CodeDis.Text)).FirstOrDefault();
+
+                    model.Болезни.Remove(болезни);
+                    model.SaveChanges();
                 }
 
             }
@@ -141,6 +146,11 @@ namespace Second.view
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             SaveEntry(int.Parse(IndexText.Text));
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            DeleteEntry();
         }
     }
 }

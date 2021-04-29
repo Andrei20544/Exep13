@@ -53,18 +53,38 @@ namespace Second.view
             try
             {
 
-                    using (Model1 model = new Model1())
-                    {
-                        Должности должности = new Должности
-                        {
-                            Наименование_должности = name.Text,
-                            Оклад = Decimal.Parse(oklad.Text),
-                            Обязонности = duties.Text,
-                            Требования = requirements.Text,
-                        };
+                using (Model1 model = new Model1())
+                {
 
-                        model.Должности.Add(должности);
-                        model.SaveChanges();
+                    Должности должности = model.Должности.Where(p => p.Код_должности == int.Parse(code.Text)).FirstOrDefault();
+
+                    должности.Наименование_должности = name.Text;
+                    должности.Оклад = Decimal.Parse(oklad.Text);
+                    должности.Обязонности = duties.Text;
+                    должности.Требования = requirements.Text;
+
+                    model.Entry(должности).State = System.Data.Entity.EntityState.Modified;
+                    model.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось сохранить изменения");
+            }
+        }
+
+        private void DeleteEntry()
+        {
+            try
+            {
+                using (Model1 model = new Model1())
+                {
+
+                    Должности должности = model.Должности.Where(p => p.Код_должности == int.Parse(code.Text)).FirstOrDefault();
+
+                    model.Должности.Remove(должности);
+                    model.SaveChanges();
                 }
 
             }
@@ -109,5 +129,9 @@ namespace Second.view
             SaveEntry();
         }
 
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            DeleteEntry();
+        }
     }
 }

@@ -90,29 +90,44 @@ namespace Second.view
         {
             try
             {
-                int _maxLenth = realtors.Count;
-
-                if (index <= _maxLenth && index > 0)
+                using (Model1 model = new Model1())
                 {
-                    using (Model1 model = new Model1())
-                    {
-                        Пациенты пациенты = new Пациенты
-                        {
-                            ФИО_пациента = name.Text,
-                            Возраст = int.Parse(name.Text),
-                            Пол = continuied.Text,
-                            Адрес = aftermath.Text,
-                            Телефон = CodeLec1.Text,
-                            Дата_обращения = DateTime.Parse(CodeLec1.Text),
-                            Код_болезни = long.Parse(CodeBol.Text),
-                            Код_сотрудника = long.Parse(CodeSotr.Text),
-                            Результат_лечения = Result.Text,
-                        };
 
-                        model.Пациенты.Add(пациенты);
-                        model.SaveChanges();
+                    Пациенты пациенты = model.Пациенты.Where(p => p.Телефон == aftermath.Text).FirstOrDefault();
 
-                    }
+                    пациенты.ФИО_пациента = name.Text;
+                    пациенты.Возраст = int.Parse(name.Text);
+                    пациенты.Пол = continuied.Text;
+                    пациенты.Адрес = aftermath.Text;
+                    пациенты.Телефон = CodeLec1.Text;
+                    пациенты.Дата_обращения = DateTime.Parse(CodeLec1.Text);
+                    пациенты.Код_болезни = long.Parse(CodeBol.Text);
+                    пациенты.Код_сотрудника = long.Parse(CodeSotr.Text);
+                    пациенты.Результат_лечения = Result.Text;
+
+                    model.Entry(пациенты).State = System.Data.Entity.EntityState.Modified;
+                    model.SaveChanges();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось сохранить изменения");
+            }
+        }
+
+        private void DeleteEntry()
+        {
+            try
+            {
+                using (Model1 model = new Model1())
+                {
+
+                    Пациенты пациенты = model.Пациенты.Where(p => p.Телефон == aftermath.Text).FirstOrDefault();
+
+                    model.Пациенты.Remove(пациенты);
+                    model.SaveChanges();
                 }
 
             }
@@ -147,5 +162,9 @@ namespace Second.view
             SaveEntry(int.Parse(IndexText.Text));
         }
 
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            DeleteEntry();
+        }
     }
 }

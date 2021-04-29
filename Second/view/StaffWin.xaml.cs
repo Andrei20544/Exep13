@@ -60,18 +60,37 @@ namespace Second.view
 
                 using (Model1 model = new Model1())
                 {
-                    Сотрудники сотрудники = new Сотрудники
-                    {
-                        ФИО = name.Text,
-                        Возраст = int.Parse(simpt.Text),
-                        Пол = continuied.Text,
-                        Адрес = aftermath.Text,
-                        Телефон = CodeLec1.Text,
-                        Паспортные_данные = CodeBol.Text,
-                        Код_должности = int.Parse(CodeSotr.Text)
-                    };
+                    Сотрудники сотрудники = model.Сотрудники.Where(p => p.Код_сотрудника == int.Parse(CodeDis.Text)).FirstOrDefault();
 
-                    model.Сотрудники.Add(сотрудники);
+                    сотрудники.ФИО = name.Text;
+                    сотрудники.Возраст = int.Parse(simpt.Text);
+                    сотрудники.Пол = continuied.Text;
+                    сотрудники.Адрес = aftermath.Text;
+                    сотрудники.Телефон = CodeLec1.Text;
+                    сотрудники.Паспортные_данные = CodeBol.Text;
+                    сотрудники.Код_должности = int.Parse(CodeSotr.Text);
+
+                    model.Entry(сотрудники).State = System.Data.Entity.EntityState.Modified;
+                    model.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось сохранить изменения");
+            }
+        }
+
+        private void DeleteEntry()
+        {
+            try
+            {
+                using (Model1 model = new Model1())
+                {
+
+                    Сотрудники сотрудники = model.Сотрудники.Where(p => p.Код_сотрудника == int.Parse(CodeDis.Text)).FirstOrDefault();
+
+                    model.Сотрудники.Remove(сотрудники);
                     model.SaveChanges();
                 }
 
@@ -115,6 +134,11 @@ namespace Second.view
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             SaveEntry();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            DeleteEntry();
         }
     }
 }

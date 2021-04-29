@@ -56,18 +56,38 @@ namespace Second.view
             {
                 using (Model1 model = new Model1())
                 {
-                    Лекарства лекарства = new Лекарства
-                    {
-                        Наименование = name.Text,
-                        Показания = simpt.Text,
-                        Противопоказания = continuied.Text,
-                        Упаковка = aftermath.Text,
-                        Стоимость = decimal.Parse(CodeLec1.Text),
-                    };
 
-                    model.Лекарства.Add(лекарства);
+                    Лекарства лекарства = model.Лекарства.Where(p => p.Код_лекарства == int.Parse(CodeDis.Text)).FirstOrDefault();
+
+                    лекарства.Наименование = name.Text;
+                    лекарства.Показания = simpt.Text;
+                    лекарства.Противопоказания = continuied.Text;
+                    лекарства.Упаковка = aftermath.Text;
+                    лекарства.Стоимость = decimal.Parse(CodeLec1.Text);
+
+                    model.Entry(лекарства).State = System.Data.Entity.EntityState.Modified;
                     model.SaveChanges();
 
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Не удалось сохранить изменения");
+            }
+        }
+
+        private void DeleteEntry()
+        {
+            try
+            {
+                using (Model1 model = new Model1())
+                {
+
+                    Лекарства лекарства = model.Лекарства.Where(p => p.Код_лекарства == int.Parse(CodeDis.Text)).FirstOrDefault();
+
+                    model.Лекарства.Remove(лекарства);
+                    model.SaveChanges();
                 }
 
             }
@@ -113,6 +133,11 @@ namespace Second.view
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             GetPred(1);
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            DeleteEntry();
         }
     }
 }

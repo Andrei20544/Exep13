@@ -1,0 +1,207 @@
+﻿<Window x:Class="Second.view.MedicinesWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Second.view"
+        mc:Ignorable="d"
+        Title="MedicinesWin" 
+        Height="750" 
+        Width="1100">
+    <Window.Resources>
+
+        <Style TargetType="Button">
+
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="35"/>
+
+        </Style>
+        <Style TargetType="TextBox">
+
+            <Setter Property="Margin" Value="50 0 0 0"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Width" Value="600"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+
+        </Style>
+
+        <Style TargetType="StackPanel">
+
+            <Setter Property="Margin" Value="5"/>
+
+        </Style>
+
+        <Style TargetType="TextBlock">
+
+            <Setter Property="Width" Value="180"/>
+
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Таблица 'Лекарства'"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="25"
+                   Width="300"
+                   Foreground="#FF117AD6"/>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center">
+
+            <Button Content="Назад" Click="Button_Click"/>
+
+            <Button Content="Вперед" Click="Button_Click_1"/>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="Запись: "
+                           FontSize="20"
+                           Width="80"/>
+                <TextBlock Text="0"
+                           Name="IndexText"
+                           FontSize="20"
+                           Width="50"/>
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              Margin="10"
+              Grid.ColumnSpan="2">
+
+            <ScrollViewer>
+
+                <StackPanel HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Код_лекарства"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                        <TextBox 
+                         Name="CodeDis"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Наиенование"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                        <TextBox 
+                         Name="name"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Показания"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                        <TextBox 
+                         Name="simpt"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Противопоказания"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                        <TextBox 
+                         Name="continuied"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Упаковка"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                        <TextBox 
+                         Name="aftermath"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Стоимость"
+                           VerticalAlignment="Center"
+                           FontSize="20"/>
+                        <TextBox 
+                         Name="CodeLec1"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <Grid Height="150"
+                          Margin="0 20 0 0">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+
+                            <Button Content="Первая"
+                                    Width="150"
+                                    Margin="0 0 0 5" Click="Button_Click_2"/>
+                            <Button Content="Последняя"
+                                    Width="150"
+                                    Margin="0" Click="Button_Click_3"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+
+                            <Button Content="Сохранить"
+                                    Width="150"
+                                    Margin="0 0 0 5" Click="Button_Click_4"/>
+                            <Button Content="Удалить"
+                                    Width="150"
+                                    Margin="0"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+
+        </Grid>
+
+    </Grid>
+</Window>
